@@ -1,11 +1,21 @@
-import { useState } from 'react';
-const Login = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+import { useState } from 'react'
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  };
+import { Navigate, useNavigate } from 'react-router-dom'
+import Dashboard from './Dashboard'
+const Login = ({ setUser }) => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+
+  const navigate = useNavigate()
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    if (!name || !email) return
+    setUser({ name: name, email: email })
+    navigate('/dashboard')
+
+    // console.log(name, email)
+  }
 
   return (
     <section className='section'>
@@ -20,7 +30,7 @@ const Login = () => {
             className='form-input'
             id='name'
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
         </div>
         <div className='form-row'>
@@ -32,7 +42,7 @@ const Login = () => {
             className='form-input'
             id='email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <button type='submit' className='btn btn-block'>
@@ -40,6 +50,6 @@ const Login = () => {
         </button>
       </form>
     </section>
-  );
-};
-export default Login;
+  )
+}
+export default Login
